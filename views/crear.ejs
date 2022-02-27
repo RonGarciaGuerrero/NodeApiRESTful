@@ -1,0 +1,62 @@
+<%- include("template/cabecera",{tituloWeb:'Nuevo Juego'})%>
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        document.getElementById("addPlatform").addEventListener("click",function(){
+            document.getElementById("plataformas").innerHTML+='<input type="text" placeholder="Plataformas" class="form-control my-2" name="plataforma">';
+        });
+        document.getElementById("removePlatform").addEventListener('click',function(){
+            let inputs = document.querySelectorAll('input[name=plataforma]');
+            
+            if (inputs.length>1){
+                inputs[inputs.length-1].remove();
+            }else{
+                alert("Debe haber al menos una plataforma");
+            }
+            //cojo el ultimo input de plataforma y lo elimina
+        });
+
+
+
+        document.getElementById("addGenre").addEventListener("click",function(){
+            document.getElementById("generos").innerHTML+='<input type="text" placeholder="Generos" class="form-control my-2" name="generos">';
+        });
+        document.getElementById("removeGenre").addEventListener('click',function(){
+            let inputs = document.querySelectorAll('input[name=generos]');
+            
+            if (inputs.length>1){
+                inputs[inputs.length-1].remove();
+            }else{
+                alert("Debe haber al menos un genero");
+            }
+            //cojo el ultimo input de género y lo elimina
+        });
+
+    });
+    
+
+</script>
+<div class="container">
+    <h1>Añadir un nuevo Juego</h1>
+    <form action="/game" class="my-2" method="POST">
+        <input type="text" placeholder="Nombre del juego" class="form-control my-2" name="nombre" require>
+        <div id="plataformas">
+            <input type="text" placeholder="Plataformas" class="form-control my-2" name="plataforma" require>
+        </div>
+        <a class="btn btn-outline-dark btn-sm" role="button" id="addPlatform">Añadir otra plataforma</a>
+        <a class="btn btn-outline-danger btn-sm" role="button" id="removePlatform">Eliminar plataforma</a>
+        <input type="text" placeholder="Descripción" class="form-control my-2" name="descripcion" require>
+        <input type="number" placeholder="Año" class="form-control my-2" name="anio" require>
+        <input type="number" placeholder="pegi" class="form-control my-2" name="pegi" require>
+        <input type="text" placeholder="Estudio" class="form-control my-2" name="estudio" require>
+        <div id="generos">
+            <input type="text" placeholder="Generos" class="form-control my-2" name="generos" require>
+        </div>
+        <a class="btn btn-outline-dark btn-sm" role="button" id="addGenre">Añadir otro género</a>
+        <a class="btn btn-outline-danger btn-sm" role="button" id="removeGenre">Eliminar género</a><br><br>
+        <button type="submit" class="btn btn-dark btn-block btn-lg">
+            Agregar
+        </button>
+    </form>
+    
+</div>
+<%- include("template/footer") %> 

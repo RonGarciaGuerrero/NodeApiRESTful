@@ -1,0 +1,38 @@
+<%- include("template/cabecera" , {tituloWeb: "Inicio" }) %>
+
+<div class="container">
+    <h1>Bienvenido <%=login%></h1>
+    <h1>Bienvenido <%=prueba%></h1>
+    <a href="/pokemon/crear" class="btn btn-success btn-block my-4">Añadir un nuevo juego</a>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (arrayPokemon.length> 0) { %>
+                <!--Haremos el foreach para recorrer el array-->
+                <% arrayPokemon.forEach(pokemon=> { %>
+                    <tr>
+                        <th scope="row"><%= pokemon.id %></th>
+                        <td><%= pokemon.nombre %></td>
+                        <td><%= pokemon.tipo %></td>
+                        <td><%= pokemon.descripcion %></td>
+                        <td><a class="btn btn-warning btn-sm" href="pokemon/<%= pokemon.id %>">Editar/Eliminar</a></td>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<!-- creo un sessionstorage en el navegador para quedarme con los datos del usuario que ha hecho login -->
+<script> 
+    sessionStorage.setItem('login', "<%= login %>");
+</script>
+    <%- include("template/footer") %>
+    

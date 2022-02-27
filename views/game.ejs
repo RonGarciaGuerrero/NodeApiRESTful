@@ -1,0 +1,57 @@
+<%- include("template/cabecera" , {tituloWeb: "Inicio" }) %>
+<!-- nombre: String,
+    plataforma: [String],
+    descripcion: String,
+    anio: Number,
+    pegi: Number,
+    estudio: String,
+    generos: [String] -->
+<div class="container">
+    <h1>Bienvenido <%= typeof login != 'undefined' ? login : "invitado"%></h1>
+    <div class="container alert alert-success">
+        <h6><%if (mensaje != null){%>
+            <%=mensaje%>
+        <%}%></h6>
+    </div>
+    
+
+    <a href="/pokemon/crear" class="btn btn-success btn-block my-4">Añadir un nuevo juego</a>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Plataforma</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Pegi</th>
+                <th scope="col">Estudio</th>
+                <th scope="col">Generos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (arrayGame.length> 0) { %>
+                <!--Haremos el foreach para recorrer el array-->
+                <% arrayGame.forEach(game=> { %>
+                    <tr>
+                        <th scope="row"><%= game.id %></th>
+                        <td><%= game.nombre %></td>
+                        <td><%= game.plataforma %></td>
+                        <td><%= game.descripcion %></td>
+                        <td><%= game.pegi %></td>
+                        <td><%= game.estudio %></td>
+                        <td><%= game.generos %></td>
+                        <td><a class="btn btn-warning btn-sm" href="game/<%= game.id %>">Editar/Eliminar</a></td>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<!-- creo un sessionstorage en el navegador para quedarme con los datos del usuario que ha hecho login -->
+<% if (typeof login != 'undefined') { %>
+<script> 
+    sessionStorage.setItem('login', "<%= login %>");
+</script>
+<% } %>
+    <%- include("template/footer") %>
+    

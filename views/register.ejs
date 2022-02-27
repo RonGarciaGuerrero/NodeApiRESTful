@@ -1,0 +1,17 @@
+<%- include("template/cabecera",{tituloWeb:'Registro de usuarios'})%>
+<div class="container">
+    <h1>Registrese en nuestra tienda</h1>
+    <% if (error) { %>
+        <span class="error"><%= error %></span>
+        <% } %>   
+        <form id="registro" action="/pokemon/register" method="POST">
+            <input type="text" class="form-control my-2" name="login" id="login">
+            <input type="password" class="form-control my-2" name="password" id="password">
+
+            <button class="btn btn-warning btn-sm" type="submit">
+                Crear usuario
+            </button>
+        </form>
+ 
+</div>
+<%- include("template/footer") %> 

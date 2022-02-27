@@ -1,0 +1,131 @@
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        document.getElementById("addPlatform").addEventListener("click",function(){
+            document.getElementById("plataformas").innerHTML+='<input type="text" placeholder="Plataformas" class="form-control my-2" name="plataforma">';
+        });
+        document.getElementById("removePlatform").addEventListener('click',function(){
+            let inputs = document.querySelectorAll('input[name=plataforma]');
+            
+            if (inputs.length>1){
+                inputs[inputs.length-1].remove();
+            }else{
+                alert("Debe haber al menos una plataforma");
+            }
+            //cojo el ultimo input de plataforma y lo elimina
+        });
+
+
+
+        document.getElementById("addGenre").addEventListener("click",function(){
+            document.getElementById("generos").innerHTML+='<input type="text" placeholder="Generos" class="form-control my-2" name="generos">';
+        });
+        document.getElementById("removeGenre").addEventListener('click',function(){
+            let inputs = document.querySelectorAll('input[name=generos]');
+            
+            if (inputs.length>1){
+                inputs[inputs.length-1].remove();
+            }else{
+                alert("Debe haber al menos un genero");
+            }
+            //cojo el ultimo input de género y lo elimina
+        });
+    });
+</script>
+
+<%- include("template/cabecera",{tituloWeb:'Detalles del Juego'})%>
+<div class="container">
+    <h1>Detalle del Juego</h1>
+    <% if (!error) { %>
+        <form method="post" id="editar" data-id="<%= game.id %>" action="/game/<%= game.id %>?_method=PUT">
+            <input type="text" value="<%= game.nombre %>" class="form-control my-2" name="nombre"
+                id="nombreInput">
+            <div id="plataformas">
+                <% for(i in game.plataforma){%>
+
+                    <input type="text" value="<%=game.plataforma[i]%>" class="form-control my-2" name="plataforma" >
+                <%}%>
+            </div>
+            <a class="btn btn-outline-dark btn-sm" role="button" id="addPlatform">Añadir otra plataforma</a>
+            <a class="btn btn-outline-danger btn-sm" role="button" id="removePlatform">Eliminar plataforma</a>
+                
+            
+            <input type="text" value="<%= game.descripcion %>" class="form-control my-2"
+                name="descripcion" id="descripcionInput">
+            <input type="text" value="<%= game.anio %>" class="form-control my-2"
+                name="anio" id="anioInput">
+            <input type="text" value="<%= game.pegi %>" class="form-control my-2"
+                name="pegi" id="pegiInput">
+            <input type="text" value="<%= game.estudio %>" class="form-control my-2"
+                name="estudio" id="estudioInput">
+            
+            
+                <div id="generos">
+                    <% for(i in game.generos){%>
+    
+                        <input type="text" value="<%=game.generos[i]%>" class="form-control my-2" name="generos"
+                        >
+                    <%}%>
+                </div>
+                
+
+                <a class="btn btn-outline-dark btn-sm" role="button" id="addGenre">Añadir otro género</a>
+                <a class="btn btn-outline-danger btn-sm" role="button" id="removeGenre">Eliminar género</a><br><br>
+                
+                
+
+                <button class="btn btn-warning btn-sm" type="submit">
+                Editar
+            </button>
+        </form>
+        <hr>
+        <button class="btn btn-danger btn-sm" data-id="<%= game.id %>">
+            Eliminar
+        </button>
+<% } %>
+        
+</div>
+<%- include("template/footer") %> 
+<script>
+    const btnEliminar = document.querySelector('.btn-danger')
+    btnEliminar.addEventListener('click', async () => {
+        console.log(btnEliminar.dataset.id)
+        try {
+            // https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset
+            const data = await fetch(`/game/${btnEliminar.dataset.id}`, {
+                method: 'delete'
+            })
+            const res = await data.json()
+            console.log(res)
+            if (res.estado) {
+                window.location.href = '/game'
+            } else {
+                console.log(res)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    })
+    // const formEditar = document.querySelector('#editar');
+    //         formEditar.addEventListener('submit', async (e) => {
+    //             e.preventDefault()
+    //             const nombre = formEditar.elements['nombre'].value
+    //             const tipo = formEditar.elements['tipo'].value
+    //             const descripcion = formEditar.elements['descripcion'].value
+    //             const id = formEditar.dataset.id
+                
+                
+    //             const data = await fetch(`/games/${id}`, {
+    //                 method: 'PUT',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //                 body: JSON.stringify({ nombre, tipo, descripcion })
+    //             })
+    //             const res = await data.json()
+    //             if (res.estado) {
+    //                 window.location.href = '/pokemon'
+    //             } else {
+    //                 console.log(res)
+    //             }
+    //         })
+</script>
