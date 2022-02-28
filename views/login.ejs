@@ -5,9 +5,10 @@
         <span class="error"><%= error %></span>
         <% } %>   
         <!-- se hace con get o con post??? -->
+        <h5>Si ya está registrado acceda indicando su usuario y contraseña.</h5>
         <form id="inicioSesion" action="/game/login" method="GET">
-            <input type="text" class="form-control my-2" name="login" id="login">
-            <input type="password" class="form-control my-2" name="password" id="password">
+            <input type="text" class="form-control my-2" name="login" id="login" placeholder="Usuario">
+            <input type="password" class="form-control my-2" name="password" id="password" placeholder="Contraseña">
 
             <button class="btn btn-warning btn-sm" type="submit">
                 Iniciar sesión

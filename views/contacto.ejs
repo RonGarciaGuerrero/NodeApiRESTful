@@ -1,7 +1,9 @@
 <%- include("template/cabecera", {tituloWeb: "Contacto"}) %>
+    <div class="container text-center mb-3">
+        <h2><%= tituloContacto %></h2>
 
-    <h2><%= tituloContacto %></h2>
-
-    <h2><%= contenido %></h2>
-
+        <h5><%= correo %></h5>
+        <h5><%= telefono %></h5>
+        <h5><%= web %></h5>
+    </div>
     <%- include("template/footer") %>
